@@ -15,37 +15,12 @@ class EventListener implements Listener{
         $this->plugin = $plugin;
     }
 
-    public function onPlace(BlockPlaceEvent $event){
-        if(!$event->getPlayer()->hasPermission("customareas.bypass")){
+    public function onHit(EntityDamageEvent $event){
             foreach($this->plugin->areas as $area){
                 if($area->isInside($event->getBlock()) and !$area->canBuild($event->getPlayer())){
                     $event->setCancelled();
-                    $event->getPlayer()->sendMessage("This is ".$area->owner."'s private area");
                 }
             }
-        }
-    }
-
-    public function onBreak(BlockBreakEvent $event){
-        if(!$event->getPlayer()->hasPermission("customareas.bypass")){
-            foreach($this->plugin->areas as $area){
-                if($area->isInside($event->getBlock()) and !$area->canBuild($event->getPlayer())){
-                    $event->setCancelled();
-                    $event->getPlayer()->sendMessage("This is ".$area->owner."'s private area");
-                }
-            }
-        }
-    }
-
-    public function onInteract(PlayerInteractEvent $event){
-        if(!$event->getPlayer()->hasPermission("customareas.bypass")){
-            foreach($this->plugin->areas as $area){
-                if($area->isInside($event->getBlock()) and !$area->canBuild($event->getPlayer())){
-                    $event->setCancelled();
-                    $event->getPlayer()->sendMessage("This is ".$area->owner."'s private area");
-                }
-            }
-        }
     }
 
 }
